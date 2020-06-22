@@ -2,16 +2,21 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Microsoft.Protocols.TestTools
 {
-   
+    /// <summary>
+    /// An attribute which indicates to the Spec Explorer test code infrastructure
+    /// that a given class or interface and all its derivations represents a test adapter.
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Interface | AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
+    public sealed class TestAdapterAttribute : Attribute
+    { }
+
     /// <summary>
     /// An interface that every adapter must implement.
     /// </summary>
-    [Microsoft.SpecExplorer.Runtime.Testing.TestAdapter]
+    [TestAdapter]
     public interface IAdapter : IDisposable
     {
         /// <summary>

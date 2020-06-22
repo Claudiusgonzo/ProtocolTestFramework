@@ -82,22 +82,9 @@
                   Property="VSTEST_AGENT_NOT_INSTALLED_WARNING_TEXT"
                   Value="• Microsoft Visual Studio 2017 or higher&#xA;" />
 
-    <!-- Spec Explorer dependency check-->
-    <Property Id="SPEC_EXPLORER_INSTALLED">
-      <DirectorySearch Id="SeSearch" Path="[ProgramFilesFolder]\Spec Explorer 2010" Depth="1">
-        <FileSearch Name="SpecExplorer.exe" Languages="0" MinVersion="3.5.3146.0" />
-      </DirectorySearch>
-    </Property>
-
     <CustomAction Id="SET_SE_NOT_INSTALLED_WARNING_TEXT"
                   Property="SE_NOT_INSTALLED_WARNING_TEXT"
                   Value="• Microsoft Spec Explorer 2010&#xA;" />
-
-    <InstallUISequence>
-      <Custom Action="SET_SE_NOT_INSTALLED_WARNING_TEXT" After="AppSearch">
-        <![CDATA[NOT SPEC_EXPLORER_INSTALLED]]>
-      </Custom>
-    </InstallUISequence>
 
     <!-- Directory Structure -->
     <Directory Id="TARGETDIR" Name="SourceDir">
@@ -231,9 +218,9 @@
 
       <Publish Dialog="CustomizeDlg" Control="Back" Event="NewDialog" Value="MaintenanceTypeDlg" Order="1">Installed</Publish>
       <Publish Dialog="CustomizeDlg" Control="Back" Event="NewDialog" Value="PrivacyDlg" Order="2">NOT Installed</Publish>
-      <Publish Dialog="CustomizeDlg" Control="Next" Event="NewDialog" Value="VerifyReadyDlg" Order="1"><![CDATA[DOTNET471 AND VSInstalled AND SPEC_EXPLORER_INSTALLED]]></Publish>
+      <Publish Dialog="CustomizeDlg" Control="Next" Event="NewDialog" Value="VerifyReadyDlg" Order="1"><![CDATA[DOTNET471 AND VSInstalled]]></Publish>
       <Publish Dialog="CustomizeDlg" Control="Next" Event="NewDialog" Value="DependencyCheckWarningDlg" Order="2">
-        <![CDATA[(NOT DOTNET471) OR (NOT VSInstalled) OR (NOT SPEC_EXPLORER_INSTALLED)]]>
+        <![CDATA[(NOT DOTNET471) OR (NOT VSInstalled)]]>
       </Publish>
       <Publish Dialog="DependencyCheckWarningDlg" Control="Back" Event="NewDialog" Value="CustomizeDlg">1</Publish>
       <Publish Dialog="DependencyCheckWarningDlg" Control="Next" Event="NewDialog" Value="VerifyReadyDlg">1</Publish>

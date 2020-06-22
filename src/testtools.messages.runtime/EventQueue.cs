@@ -2,9 +2,8 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Reflection;
+using System.Text;
 
 namespace Microsoft.Protocols.TestTools.Messages.Runtime
 {
@@ -152,7 +151,7 @@ namespace Microsoft.Protocols.TestTools.Messages.Runtime
     /// <summary>
     /// A type to describe an available event.
     /// </summary>
-    public struct AvailableEvent
+    public class AvailableEvent
     {
         /// <summary>
         /// The event identified by its
@@ -190,7 +189,6 @@ namespace Microsoft.Protocols.TestTools.Messages.Runtime
         /// <param name="target">The target of the event (the instance object where the event belongs too)</param>
         /// <param name="parameters">Parameters passed to the event</param>
         public AvailableEvent(EventInfo eventInfo, object target, object[] parameters)
-            : this()
         {
             this.Event = eventInfo;
             this.Target = target;

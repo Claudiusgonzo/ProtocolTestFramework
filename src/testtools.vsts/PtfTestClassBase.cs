@@ -2,11 +2,9 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Reflection;
 
-using Microsoft.SpecExplorer.Runtime.Testing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Microsoft.Protocols.TestTools
@@ -16,7 +14,7 @@ namespace Microsoft.Protocols.TestTools
     /// integrating into PTF.
     /// </summary>
     //there's a bug in SE, disable IByPassingTestSuite before they fix it.
-    public class PtfTestClassBase : TestClassBase, IGeneratedTestClass, IBasicTestSite //IBypassingTestSite 
+    public class PtfTestClassBase : TestClassBase
     {
         private Dictionary<IAdapter, bool> adapters = new Dictionary<IAdapter, bool>();
         ITestManager manager;
@@ -124,12 +122,11 @@ namespace Microsoft.Protocols.TestTools
         {
             IAdapter adapter = TestSite.GetAdapter(adapterType);
             adapters[adapter] = true;
-            
             return adapter;
         }
 
         /// <summary>
-        /// See <see cref="Microsoft.SpecExplorer.Runtime.Testing.GeneratedTestClassBase.BeginTest"/>
+        /// BeginTest
         /// </summary>
         /// <param name="name">The test name</param>
         public virtual void BeginTest(string name)
@@ -138,7 +135,7 @@ namespace Microsoft.Protocols.TestTools
         }
 
         /// <summary>
-        /// See <see cref="Microsoft.SpecExplorer.Runtime.Testing.GeneratedTestClassBase.EndTest"/>
+        /// EndTest
         /// </summary>
         public virtual void EndTest()
         {
@@ -146,7 +143,7 @@ namespace Microsoft.Protocols.TestTools
         }
 
         /// <summary>
-        /// See <see cref="Microsoft.SpecExplorer.Runtime.Testing.GeneratedTestClassBase.Assert"/>
+        /// Assert
         /// </summary>
         /// <param name="condition">A bool condition</param>
         /// <param name="description">Description message for Assert</param>
@@ -156,7 +153,7 @@ namespace Microsoft.Protocols.TestTools
         }
 
         /// <summary>
-        /// See <see cref="Microsoft.SpecExplorer.Runtime.Testing.GeneratedTestClassBase.Assume"/>
+        /// Assume
         /// </summary>
         /// <param name="condition">A bool condition</param>
         /// <param name="description">Description message for Assume</param>
@@ -166,7 +163,7 @@ namespace Microsoft.Protocols.TestTools
         }
 
         /// <summary>
-        /// See <see cref="Microsoft.SpecExplorer.Runtime.Testing.GeneratedTestClassBase.Checkpoint"/>
+        /// Checkpoint
         /// </summary>
         /// <param name="description">Description message for a check point in log</param>
         public virtual void Checkpoint(string description)
@@ -175,7 +172,7 @@ namespace Microsoft.Protocols.TestTools
         }
 
         /// <summary>
-        /// See <see cref="Microsoft.SpecExplorer.Runtime.Testing.GeneratedTestClassBase.Comment"/>
+        /// Comment
         /// </summary>
         /// <param name="description">Description message for a comment in log</param>
         public virtual void Comment(string description)
@@ -209,7 +206,6 @@ namespace Microsoft.Protocols.TestTools
 
         #region IGeneratedTestClass Members
 
-       
         /// <summary>
         /// Sets the field value of "proceedcontroltimeout", "quiescencetimeout", or "observationbound"
         /// </summary>
@@ -302,7 +298,7 @@ namespace Microsoft.Protocols.TestTools
         /// </summary>
         public virtual void InitializeTestManager()
         {
-            manager = new DefaultTestManager(this, observationBound, observationBound);
+            this.manager = new TestManager(this, observationBound, observationBound);
         }
 
         /// <summary>
@@ -330,7 +326,7 @@ namespace Microsoft.Protocols.TestTools
                 this.manager = value;
             }
         }
- 
+
         /// <summary>
         /// Creates a struct of type T with given field initialization.
         /// </summary>
@@ -348,7 +344,7 @@ namespace Microsoft.Protocols.TestTools
                 typeof(T).FullName, fields.Length, fieldValues.Length));
 
             int j = 0;
-            Dictionary<string, object> valueDict = new Dictionary<string,object>();
+            Dictionary<string, object> valueDict = new Dictionary<string, object>();
             foreach (string name in fieldNames)
                 valueDict[name] = fieldValues[j++];
 

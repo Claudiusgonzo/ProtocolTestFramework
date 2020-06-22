@@ -47,6 +47,7 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="AvailableReturn.cs" />
     <Compile Include="Channel.cs" />
     <Compile Include="DefaultRuntimeHost.cs" />
     <Compile Include="EventQueue.cs" />

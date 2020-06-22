@@ -13,7 +13,7 @@ namespace Microsoft.Protocols.TestTools.Messages
     /// Implements a simple thread-safe queue used for observing events and returns.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    internal class ObservationQueue<T>
+    public class ObservationQueue<T>
     {
         object queueLock = new object();
         object queueFullLock = new object();

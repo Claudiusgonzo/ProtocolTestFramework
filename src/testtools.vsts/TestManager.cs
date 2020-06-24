@@ -62,8 +62,6 @@ namespace Microsoft.Protocols.TestTools
         /// <param name="arguments">the arguments to the return method.</param>
         public void AddEvent(EventInfo eventInfo, object target, params object[] arguments)
         {
-            if (!TestManagerHelpers.RequiresTarget(eventInfo))
-                target = null;
             eventQueue.Add(new AvailableEvent(eventInfo, target, arguments));
         }
 
@@ -78,10 +76,6 @@ namespace Microsoft.Protocols.TestTools
         /// <param name="arguments">the arguments to the return method.</param>
         public void AddReturn(MethodBase methodInfo, object target, params object[] arguments)
         {
-            if (!TestManagerHelpers.RequiresTarget(methodInfo))
-                target = null;
-            // HACK: we should do some consistency checks here, since in contrast
-            // to events, a user can call this method and provide wrong parameters.
             returnQueue.Add(new AvailableReturn(methodInfo, target, arguments));
         }
 
@@ -96,8 +90,7 @@ namespace Microsoft.Protocols.TestTools
             {
                 transaction.Add(new TransactionEvent(TransactionEventKind.Assert, condition, description, null));
 
-                bool failed = !condition;
-                failed = !site.IsTrue(condition, description);
+                bool failed = !site.IsTrue(condition, description);
 
                 if (failed)
                     throw new TransactionFailedException();
@@ -379,7 +372,7 @@ namespace Microsoft.Protocols.TestTools
                 {
                     if (expectedEvent.Checker != null)
                     {
-                        CallChecker(expectedEvent.callingStyle, expectedEvent.Checker, availableEvent.Target, availableEvent.Parameters);
+                        CallChecker(expectedEvent.Checker, availableEvent.Target, availableEvent.Parameters);
                     }
                 },
                 expected
@@ -414,21 +407,11 @@ namespace Microsoft.Protocols.TestTools
                 {
                     if (expectedReturn.Checker != null)
                     {
-                        CallChecker(expectedReturn.callingStyle, expectedReturn.Checker, availableReturn.Target, availableReturn.Parameters);
+                        CallChecker(expectedReturn.Checker, availableReturn.Target, availableReturn.Parameters);
                     }
                 },
                 expected
             );
-        }
-
-        /// <summary>
-        /// Generates a default value of type T.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        public T GenerateValue<T>()
-        {
-            return default(T);
         }
 
         /// <summary>
@@ -491,7 +474,7 @@ namespace Microsoft.Protocols.TestTools
             }
 
             Type declType = eventHandler.Method.DeclaringType;
-            FieldInfo processorField = declType.BaseType.GetField("manager", BindingFlags.Instance | BindingFlags.NonPublic);  //declType.GetField("processor");
+            FieldInfo processorField = declType.BaseType.GetField("manager", BindingFlags.Instance | BindingFlags.NonPublic); 
             if (processorField == null)
             {
                 return;
@@ -508,54 +491,16 @@ namespace Microsoft.Protocols.TestTools
                 site.Assert(condition, description);
         }
 
-        private void CallChecker(CheckerCallingStyle style, Delegate checker, object target, object[] parameters)
+        private void CallChecker(Delegate checker, object target, object[] parameters)
         {
-            object[] allparams;
-            switch (style)
-            {
-                case CheckerCallingStyle.ParametersDirect:
-                case CheckerCallingStyle.ParametersArray:
-                    allparams = parameters;
-                    break;
-                case CheckerCallingStyle.TargetAndParametersDirect:
-                case CheckerCallingStyle.TargetAndParametersArray:
-                    allparams = new object[parameters.Length + 1];
-                    allparams[0] = target;
-                    parameters.CopyTo(allparams, 1);
-                    break;
-                default:
-                    throw new InvalidOperationException("invalid calling style");
-            }
-
             try
             {
-                switch (style)
-                {
-                    case CheckerCallingStyle.ParametersDirect:
-                    case CheckerCallingStyle.TargetAndParametersDirect:
-                        checker.DynamicInvoke(allparams);
-                        break;
-                    default:
-                        checker.DynamicInvoke(new object[] { allparams });
-                        break;
-                }
+                checker.DynamicInvoke(parameters);
             }
             catch (TargetInvocationException e)
             {
                 throw e.InnerException;
             }
-        }
-
-        private void ConsumeReturn()
-        {
-            AvailableReturn dummy;
-            returnQueue.TryGet(TimeSpan.FromSeconds(0), true, out dummy);
-        }
-
-        private void ConsumeEvent()
-        {
-            AvailableEvent dummy;
-            eventQueue.TryGet(TimeSpan.FromSeconds(0), true, out dummy);
         }
 
         private int Expect<T, V>(TimeSpan timeout, bool failIfNone, Action<TimeSpan, V[]> FailAction, Func<T, V, bool> CompareAction, Action<V, T> ExpectCheckerAction, params V[] expected) where T : class
@@ -590,12 +535,14 @@ namespace Microsoft.Protocols.TestTools
                         Type serviceInterface = typeof(T);
                         if (serviceInterface.Equals(typeof(AvailableEvent)))
                         {
-                            ConsumeEvent();
+                            AvailableEvent dummy;
+                            eventQueue.TryGet(TimeSpan.FromSeconds(0), true, out dummy);
                         }
 
                         if (serviceInterface.Equals(typeof(AvailableReturn)))
                         {
-                            ConsumeReturn();
+                            AvailableReturn dummy;
+                            returnQueue.TryGet(TimeSpan.FromSeconds(0), true, out dummy);
                         }
 
                         return index;

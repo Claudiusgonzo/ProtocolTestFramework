@@ -44,11 +44,6 @@ namespace Microsoft.Protocols.TestTools
         }
 
         /// <summary>
-        /// The way how to call the checker.
-        /// </summary>
-        internal readonly CheckerCallingStyle callingStyle;
-
-        /// <summary>
         /// Constructs an expected method return.
         /// </summary>
         /// <param name="methodInfo">The reflection information of the method.</param>
@@ -64,15 +59,6 @@ namespace Microsoft.Protocols.TestTools
             this.Method = methodInfo;
             this.Target = target;
             this.Checker = checker;
-
-            if (checker != null)
-            {
-                this.callingStyle = TestManagerHelpers.GetReturnCheckerCallingStyle(methodInfo, checker.GetType());
-            }
-            else
-            {
-                this.callingStyle = CheckerCallingStyle.Invalid;
-            }
         }
 
         /// <summary>

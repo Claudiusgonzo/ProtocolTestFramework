@@ -139,13 +139,6 @@ namespace Microsoft.Protocols.TestTools
         IVariable<T> CreateVariable<T>(string name);
 
         /// <summary>
-        /// Generates a default value of type T.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        T GenerateValue<T>();
-
-        /// <summary>
         /// Begins a transaction. Note that the execution of a Checker happens implicitly within a transaction.
         /// </summary>
         void BeginTransaction();

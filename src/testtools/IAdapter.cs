@@ -6,17 +6,8 @@ using System;
 namespace Microsoft.Protocols.TestTools
 {
     /// <summary>
-    /// An attribute which indicates to the Spec Explorer test code infrastructure
-    /// that a given class or interface and all its derivations represents a test adapter.
-    /// </summary>
-    [AttributeUsage(AttributeTargets.Interface | AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
-    public sealed class TestAdapterAttribute : Attribute
-    { }
-
-    /// <summary>
     /// An interface that every adapter must implement.
     /// </summary>
-    [TestAdapter]
     public interface IAdapter : IDisposable
     {
         /// <summary>

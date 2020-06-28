@@ -77,6 +77,7 @@
     </Compile>
     <Compile Include="Adapters\Interactive\InteractiveAdapterProxy.cs" />
     <Compile Include="IConfigurationData.cs" />
+    <Compile Include="ITestLog.cs" />
     <Compile Include="Logging\ApplicationLog.cs" />
     <Compile Include="Logging\DerivedTypes\BeaconLogSink.cs" />
     <Compile Include="Logging\DerivedTypes\EtwLogSink.cs" />
@@ -110,8 +111,10 @@
     <Compile Include="PTFOptionParser.cs" />
     <Compile Include="ProtocolTestsManager.cs" />
     <Compile Include="RequirementId.cs" />
+    <Compile Include="TestManagerHelpers.cs" />
     <Compile Include="TestSiteProvider.cs" />
     <Compile Include="TestToolHelpers.cs" />
+    <Compile Include="Variable.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Config\site.ptfconfig" />
@@ -156,6 +159,10 @@
     <ProjectReference Include="..\TestTools.ExtendedLogging\TestTools.ExtendedLogging.csproj">
       <Project>{EEB7AC20-C23F-447A-A2E7-E92519592DB0}</Project>
       <Name>TestTools.ExtendedLogging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\testtools.messages.runtime\TestTools.Messages.Runtime.csproj">
+      <Project>{5d50c8bd-f26a-4a45-9d4a-025163b894bd}</Project>
+      <Name>TestTools.Messages.Runtime</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

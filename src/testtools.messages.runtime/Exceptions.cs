@@ -3,7 +3,7 @@
 
 using System;
 
-namespace Microsoft.Protocols.TestTools
+namespace Microsoft.Protocols.TestTools.Messages.Runtime
 {
     /// <summary>
     /// An exception which is thrown when variable is read before it is bound.

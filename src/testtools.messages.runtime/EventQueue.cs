@@ -133,7 +133,7 @@ namespace Microsoft.Protocols.TestTools.Messages.Runtime
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
         public void LogEvent(EventInfo info, params object[] arguments)
         {
-            queue.Add(new AvailableEvent(info, null, arguments));
+            queue.Add(new AvailableEvent(info, arguments));
         }
 
         private string DumpQueue()
@@ -164,16 +164,6 @@ namespace Microsoft.Protocols.TestTools.Messages.Runtime
         }
 
         /// <summary>
-        /// The target of the event (the instance object where the event
-        /// belongs too), or null, if it is a static or an adapter event.
-        /// </summary>
-        public object Target
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
         /// The parameters passed to the event.
         /// </summary>
         public object[] Parameters
@@ -186,12 +176,10 @@ namespace Microsoft.Protocols.TestTools.Messages.Runtime
         /// Internal constructor.
         /// </summary>
         /// <param name="eventInfo">The event identified by its reflection representation</param>
-        /// <param name="target">The target of the event (the instance object where the event belongs too)</param>
         /// <param name="parameters">Parameters passed to the event</param>
-        public AvailableEvent(EventInfo eventInfo, object target, object[] parameters)
+        public AvailableEvent(EventInfo eventInfo, object[] parameters)
         {
             this.Event = eventInfo;
-            this.Target = target;
             this.Parameters = parameters;
         }
 
@@ -202,11 +190,6 @@ namespace Microsoft.Protocols.TestTools.Messages.Runtime
         public override string ToString()
         {
             StringBuilder result = new StringBuilder();
-            if (Target != null)
-            {
-                result.Append(MessageRuntimeHelper.Describe(Target));
-                result.Append(".");
-            }
             result.Append("event ");
             result.Append(Event.Name);
             result.Append("(");

@@ -14,10 +14,10 @@ namespace Microsoft.Protocols.TestTools
     /// integrating into PTF.
     /// </summary>
     //there's a bug in SE, disable IByPassingTestSuite before they fix it.
-    public class PtfTestClassBase : TestClassBase
+    public class PtfTestClassBase : TestClassBase, ITestLog
     {
         private Dictionary<IAdapter, bool> adapters = new Dictionary<IAdapter, bool>();
-        ITestManager manager;
+        IProtocolTestsManager manager;
         int observationBound = 32;
         TimeSpan proceedControlTimeout = TimeSpan.FromMilliseconds(0);
         TimeSpan quiescenceTimeout = TimeSpan.FromMilliseconds(2000);
@@ -72,21 +72,18 @@ namespace Microsoft.Protocols.TestTools
             {
                 if (base.Site == null)
                 {
-                    IProtocolTestsManager testsManager =
-                        ProtocolTestsManagerFactory.TestsManager;
-
                     // triggers initialization
                     if (configPath != null)
                     {
                         IConfigurationData config = ConfigurationDataProvider.GetConfigurationData(configPath, testSuiteName);
-                        testsManager.Initialize(config, configPath, testSuiteName, testAssemblyName);
+                        ProtocolTestsManager.Initialize(config, configPath, testSuiteName, testAssemblyName);
                     }
                     else
                     {
                         IConfigurationData config = ConfigurationDataProvider.GetConfigurationData(TestContext.TestDeploymentDir, testSuiteName);
-                        testsManager.Initialize(config, base.ProtocolTestContext, testSuiteName, testAssemblyName);
+                        ProtocolTestsManager.Initialize(config, base.ProtocolTestContext, testSuiteName, testAssemblyName);
                     }
-                    base.Site = testsManager.GetTestSite(testSuiteName);
+                    base.Site = ProtocolTestsManager.GetTestSite(testSuiteName);
                     if (base.Site == null)
                     {
                         throw new InvalidOperationException(
@@ -298,7 +295,7 @@ namespace Microsoft.Protocols.TestTools
         /// </summary>
         public virtual void InitializeTestManager()
         {
-            this.manager = new TestManager(this, observationBound, observationBound);
+            this.manager = new ProtocolTestsManager(this, observationBound, observationBound);
         }
 
         /// <summary>
@@ -313,7 +310,7 @@ namespace Microsoft.Protocols.TestTools
         /// <summary>
         /// Returns the test manager. Only valid after initialization and before cleanup.
         /// </summary>
-        public ITestManager Manager
+        public IProtocolTestsManager Manager
         {
             get
             {

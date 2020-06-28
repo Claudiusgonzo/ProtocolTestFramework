@@ -3,7 +3,7 @@
 
 using System;
 
-namespace Microsoft.Protocols.TestTools
+namespace Microsoft.Protocols.TestTools.Messages.Runtime
 {
     /// <summary>
     /// A type to describe an expected pre constraint

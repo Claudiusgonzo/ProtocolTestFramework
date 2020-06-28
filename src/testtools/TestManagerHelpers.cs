@@ -3,14 +3,12 @@
 
 using Microsoft.Protocols.TestTools.Messages;
 using System;
-using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
 
 namespace Microsoft.Protocols.TestTools
 {
     /// <summary>
-    /// Helpers for TestManager.
+    /// Helper for TestProtocolManager
     /// </summary>
     public static class TestManagerHelpers
     {
@@ -97,11 +95,12 @@ namespace Microsoft.Protocols.TestTools
         /// <param name="expected">The expected value.</param>
         /// <param name="actual">The actual value.</param>
         /// <param name="context">The description of the context under which both values are compared.</param>
-        public static void AssertAreEqual<T>(ITestManager manager, T expected, T actual, string context)
+        public static void AssertAreEqual<T>(IProtocolTestsManager manager, T expected, T actual, string context)
         {
-            manager.Assert(Object.Equals(expected, actual),
-                string.Format("expected \'{0}\', actual \'{1}\' ({2})",
-                    MessageRuntimeHelper.Describe(expected), MessageRuntimeHelper.Describe(actual), context));
+            manager.Assert(
+                Object.Equals(expected, actual),
+                string.Format("expected \'{0}\', actual \'{1}\' ({2})", MessageRuntimeHelper.Describe(expected), MessageRuntimeHelper.Describe(actual), context)
+                );
         }
 
         /// <summary>
@@ -112,7 +111,7 @@ namespace Microsoft.Protocols.TestTools
         /// <param name="var">The variable.</param>
         /// <param name="actual">The actual value.</param>
         /// <param name="context">The description of the context under which the comparison or binding happens.</param>
-        public static void AssertBind<T>(ITestManager manager, IVariable<T> var, T actual, string context)
+        public static void AssertBind<T>(IProtocolTestsManager manager, IVariable<T> var, T actual, string context)
         {
             if (var.IsBound)
             {
@@ -134,7 +133,7 @@ namespace Microsoft.Protocols.TestTools
         /// <param name="v1">The first variable.</param>
         /// <param name="v2">The second variable.</param>
         /// <param name="context">The context under which the comparison or binding happens.</param>
-        public static void AssertBind<T>(ITestManager manager, IVariable<T> v1, IVariable<T> v2, string context)
+        public static void AssertBind<T>(IProtocolTestsManager manager, IVariable<T> v1, IVariable<T> v2, string context)
         {
             if ((v1.IsBound && v2.IsBound))
             {
@@ -161,12 +160,11 @@ namespace Microsoft.Protocols.TestTools
         /// <param name="manager">The test manager.</param>
         /// <param name="actual">The value under check.</param>
         /// <param name="context">The context under which the value is checked.</param>
-        public static void AssertNotNull(ITestManager manager, object actual, string context)
+        public static void AssertNotNull(ITestLog manager, object actual, string context)
         {
             manager.Assert(actual != null, string.Format("expected non-null value ({0})", context));
         }
 
         #endregion
-
     }
 }

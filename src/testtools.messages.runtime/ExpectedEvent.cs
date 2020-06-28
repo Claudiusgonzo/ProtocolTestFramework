@@ -1,13 +1,11 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using Microsoft.Protocols.TestTools.Messages;
 using System;
-using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 
-namespace Microsoft.Protocols.TestTools
+namespace Microsoft.Protocols.TestTools.Messages.Runtime
 {
     /// <summary>
     /// A type to describe an expected event.
@@ -60,15 +58,6 @@ namespace Microsoft.Protocols.TestTools
             this.Event = eventInfo;
             this.Target = target;
             this.Checker = checker;
-
-            //if (checker != null)
-            //{
-            //    this.callingStyle = TestManagerHelpers.GetEventCheckerCallingStyle(eventInfo, checker.GetType());
-            //}
-            //else
-            //{
-            //    this.callingStyle = CheckerCallingStyle.Invalid;
-            //}
         }
 
         /// <summary>

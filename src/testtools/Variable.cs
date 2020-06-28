@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using Microsoft.Protocols.TestTools.Messages.Runtime;
 using System;
 
 namespace Microsoft.Protocols.TestTools
@@ -43,9 +44,9 @@ namespace Microsoft.Protocols.TestTools
         string name;
         T value;
         bool isBound;
-        ITestManager manager;
+        IProtocolTestsManager manager;
 
-        internal Variable(string name, ITestManager manager)
+        internal Variable(string name, IProtocolTestsManager manager)
         {
             this.name = name;
             this.manager = manager;
@@ -119,16 +120,37 @@ namespace Microsoft.Protocols.TestTools
         #endregion
     }
 
-    internal enum TransactionEventKind
+    /// <summary>
+    /// TransactionEventKind
+    /// </summary>
+    public enum TransactionEventKind
     {
+        /// <summary>
+        /// Assert
+        /// </summary>
         Assert,
+        /// <summary>
+        /// Assume
+        /// </summary>
         Assume,
+        /// <summary>
+        /// Checkpoint
+        /// </summary>
         Checkpoint,
+        /// <summary>
+        /// Comment
+        /// </summary>
         Comment,
+        /// <summary>
+        /// VariableBound
+        /// </summary>
         VariableBound
     }
 
-    internal struct TransactionEvent
+    /// <summary>
+    /// TransactionEvent
+    /// </summary>
+    public struct TransactionEvent
     {
         internal TransactionEventKind Kind;
         internal bool condition;

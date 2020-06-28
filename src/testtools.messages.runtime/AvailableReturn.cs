@@ -23,16 +23,6 @@ namespace Microsoft.Protocols.TestTools.Messages.Runtime
         }
 
         /// <summary>
-        /// The target of the method (the instance object where the method
-        /// belongs too), or null, if it is a static or an adapter method.
-        /// </summary>
-        public object Target
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
         /// The parameters passed to the return.
         /// </summary>
         public object[] Parameters
@@ -45,12 +35,10 @@ namespace Microsoft.Protocols.TestTools.Messages.Runtime
         /// construct
         /// </summary>
         /// <param name="methodInfo"></param>
-        /// <param name="target"></param>
         /// <param name="parameters"></param>
-        public AvailableReturn(MethodBase methodInfo, object target, object[] parameters)
+        public AvailableReturn(MethodBase methodInfo, object[] parameters)
         {
             this.Method = methodInfo;
-            this.Target = target;
             this.Parameters = parameters;
         }
 
@@ -61,11 +49,6 @@ namespace Microsoft.Protocols.TestTools.Messages.Runtime
         public override string ToString()
         {
             StringBuilder result = new StringBuilder();
-            if (Target != null)
-            {
-                result.Append(MessageRuntimeHelper.Describe(Target));
-                result.Append(".");
-            }
             result.Append("return ");
             result.Append(Method.Name);
             result.Append("(");

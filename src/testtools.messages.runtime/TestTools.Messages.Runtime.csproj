@@ -51,6 +51,10 @@
     <Compile Include="Channel.cs" />
     <Compile Include="DefaultRuntimeHost.cs" />
     <Compile Include="EventQueue.cs" />
+    <Compile Include="Exceptions.cs" />
+    <Compile Include="ExpectedEvent.cs" />
+    <Compile Include="ExpectedPreConstraint.cs" />
+    <Compile Include="ExpectedReturn.cs" />
     <Compile Include="IdentifierBinding.cs" />
     <Compile Include="IRuntimeHost.cs" />
     <Compile Include="Marshaling.cs" />

@@ -52,18 +52,10 @@
     <Compile Include="Checking\CheckerTypes.cs" />
     <Compile Include="Checking\CheckException.cs" />
     <Compile Include="Checking\DefaultChecker.cs" />
-    <Compile Include="Exceptions.cs" />
-    <Compile Include="ExpectedEvent.cs" />
-    <Compile Include="ExpectedPreConstraint.cs" />
-    <Compile Include="ExpectedReturn.cs" />
     <Compile Include="IAutoCapture.cs" />
-    <Compile Include="ITestManager.cs" />
     <Compile Include="LogmanCapture.cs" />
     <Compile Include="PtfTestClassBase.cs" />
     <Compile Include="TestClassBase.cs" />
-    <Compile Include="TestManager.cs" />
-    <Compile Include="TestManagerHelpers.cs" />
-    <Compile Include="Variable.cs" />
     <Compile Include="VstsTestContext.cs" />
   </ItemGroup>
   <ItemGroup>

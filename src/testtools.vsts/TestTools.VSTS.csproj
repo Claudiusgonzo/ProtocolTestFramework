@@ -37,7 +37,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.SpecExplorer.Runtime, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Windows.Forms" />
@@ -63,6 +62,10 @@
     <ProjectReference Include="..\TestTools.ExtendedLogging\TestTools.ExtendedLogging.csproj">
       <Project>{EEB7AC20-C23F-447A-A2E7-E92519592DB0}</Project>
       <Name>TestTools.ExtendedLogging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\testtools.messages.runtime\TestTools.Messages.Runtime.csproj">
+      <Project>{5D50C8BD-F26A-4A45-9D4A-025163B894BD}</Project>
+      <Name>TestTools.Messages.Runtime</Name>
     </ProjectReference>
     <ProjectReference Include="..\testtools\TestTools.csproj">
       <Project>{1CA2B935-3224-40F1-84BC-47FA1A9B242E}</Project>

@@ -20,6 +20,7 @@
              Comments="Microsoft Protocol Test Framework v$(env.PTF_VERSION)"
              Manufacturer="Microsoft Corporation"
              InstallerVersion="300"
+             Platform="x64"
              Compressed="yes" />
 
     <Media Id="1" Cabinet="ProtocolTestFramework.cab" EmbedCab="yes" />
@@ -82,10 +83,6 @@
                   Property="VSTEST_AGENT_NOT_INSTALLED_WARNING_TEXT"
                   Value="• Microsoft Visual Studio 2017 or higher&#xA;" />
 
-    <CustomAction Id="SET_SE_NOT_INSTALLED_WARNING_TEXT"
-                  Property="SE_NOT_INSTALLED_WARNING_TEXT"
-                  Value="• Microsoft Spec Explorer 2010&#xA;" />
-
     <!-- Directory Structure -->
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="VS2019_ROOT_FOLDER">
@@ -113,7 +110,7 @@
       <Directory Id="ProgramMenuFolder" >
         <Directory Id="ApplicationProgramsMenuFolder" Name="Protocol Test Framework" />
       </Directory>
-      <Directory Id="ProgramFilesFolder">
+      <Directory Id="ProgramFiles64Folder">
         <Directory Id="ROOT_DIR" Name="Protocol Test Framework">
           <Directory Id="DOCS_DIR" Name="docs" />
           <Directory Id="Bin_DIR" Name="bin">
